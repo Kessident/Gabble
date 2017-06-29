@@ -21,7 +21,6 @@ router.get("/login",function (req,res) {
 
 router.post("/login",function (req,res) {
   errorMsg = {};
-  console.log(models);
   models.users.findOne({
     where:{
       username: req.body.username,
@@ -29,7 +28,7 @@ router.post("/login",function (req,res) {
     }
   }).then(function (user) {
     if (user){
-      req.session.user = user.username;
+      req.session.username = user.username;
       req.session.id = user.id;
       res.redirect("/");
     } else {
