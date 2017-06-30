@@ -87,4 +87,8 @@ router.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
+router.get("/newgab",function (req,res) {
+  res.render("newgab");
+});
+
 module.exports = router;
