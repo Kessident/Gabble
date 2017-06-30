@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Landing Page</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">Gabble</a> |
+      <a href="/newgab">Create a new Gab</a> |
+      {{#username}}
+      <a href="/login">Logged in as {{.}}</a> |
+      <a href="/logout">Log Out</a>
+      {{/username}}
+      {{^username}}
+      <a href="/login">Log in</a> |
+      <a href="/signup">Sign Up</a>
+      {{/username}}
+    </nav>
+
+    {{{yield}}}
+  </body>
+</html>
