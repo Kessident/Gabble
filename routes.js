@@ -3,12 +3,22 @@ const router = express.Router();
 const models = require("./models");
 let errorMsg;
 
-router.get("/",function (req,res) {
+const checkLogin = function (req,res,next) {
   if (req.session.username){
-    res.render("index", {username:req.session.username});
+    next();
   } else {
-    res.redirect("/login");
+    if (req.url === "/login" || req.url === "/signup"){
+      next();
+    } else {
+      res.redirect("/login");
+    }
   }
+};
+
+router.use(checkLogin);
+
+router.get("/",function (req,res) {
+  res.render("index", {username:req.session.username});
 });
 
 router.get("/login",function (req,res) {
@@ -29,7 +39,7 @@ router.post("/login",function (req,res) {
   }).then(function (user) {
     if (user){
       req.session.username = user.username;
-      req.session.id = user.id;
+      req.session.userId = user.id;
       res.redirect("/");
     } else {
       errorMsg = {msg:"Invalid username and password"};
