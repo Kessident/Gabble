@@ -27,7 +27,6 @@ router.get("/", function(req, res) {
       }
     ]
   }).then(function (gabs) {
-    console.log(gabs[0].createdBy);
     res.render("index", {username: req.session.username, gabs:gabs});
   });
 });
@@ -122,7 +121,7 @@ router.post("/delMsg",function (req,res) {
   console.log(req.body);
   models.messages.destroy({
     where:{
-      id:req.body.msgId
+      id:req.body.id
     }
   }
 ).then(function (msg) {

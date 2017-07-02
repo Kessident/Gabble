@@ -6,8 +6,12 @@
     <span class="msgId">{{id}}</span>
   </div>
   <div class="buttonContainer">
-    <button type="button" onclick="likeMsg();" class="likeBtn">Like</button>
-    <button type="button" onclick="deleteMsg();" class="delBtn">Delete</button>
+    <form class="" action="likeMsg" method="post">
+      <button name="id" class="likeBtn" value="{{id}}">Like</button>
+    </form>
+    <form class="" action="/delMsg" method="post">
+      <button name="id" class="delBtn" value="{{id}}">Delete</button>
+    </form>
   </div>
 </div>
 

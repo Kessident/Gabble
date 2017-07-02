@@ -7,19 +7,3 @@ for (let i = 0; i < createdBy.length; i++){
     delBtns[i].parentNode.removeChild(delBtns[i]);
   }
 }
-
-function deleteMsg() {
-  let form = document.createElement('form');
-  form.setAttribute('method','post');
-  form.setAttribute('action','/delMsg');
-  form.style.display = 'none';
-
-  let msgId = document.createElement('input');
-  msgId.setAttribute('name' ,'msgId');
-  msgId.setAttribute('value', document.querySelector('.msgId').innerText);
-  msgId.style.display = 'none';
-  form.appendChild(msgId);
-
-  document.body.appendChild(form);
-  form.submit();
-}
