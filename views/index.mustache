@@ -1,7 +1,7 @@
 {{#gabs}}
 <div class="gabContainer">
   <div class="insideContainer">
-    <p><span class="createdBy">{{createdBy}}</span>:  {{body}}</p>
+    <p><span class="createdBy">{{#createdBy}}{{username}}{{/createdBy}}</span>:  {{body}}</p>
     <p class="createdAt">{{createdAt}}</p>
     <span class="msgId">{{id}}</span>
   </div>

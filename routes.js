@@ -18,7 +18,16 @@ const checkLogin = function(req, res, next) {
 router.use(checkLogin);
 
 router.get("/", function(req, res) {
-  models.messages.findAll({order:[['createdAt','DESC']]}).then(function (gabs) {
+  models.messages.findAll({
+    order:[['createdAt','DESC']],
+    include:[
+      {
+        model: models.users,
+        as:'createdBy'
+      }
+    ]
+  }).then(function (gabs) {
+    console.log(gabs[0].createdBy);
     res.render("index", {username: req.session.username, gabs:gabs});
   });
 });
