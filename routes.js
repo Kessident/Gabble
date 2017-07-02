@@ -18,7 +18,9 @@ const checkLogin = function(req, res, next) {
 router.use(checkLogin);
 
 router.get("/", function(req, res) {
-  res.render("index", {username: req.session.username});
+  models.messages.findAll().then(function (gabs) {
+    res.render("index", {username: req.session.username,gabs:gabs});
+  });
 });
 
 router.get("/login", function(req, res) {
@@ -89,6 +91,17 @@ router.get("/logout", function(req, res) {
 
 router.get("/newgab",function (req,res) {
   res.render("newgab");
+});
+
+router.post("/newgab",function (req,res) {
+  let newGab = {
+    body:req.body.newGab,
+    userId: req.session.userId
+  };
+
+  models.messages.create(newGab).then(function () {
+    res.redirect("/");
+  });
 });
 
 module.exports = router;
