@@ -43,6 +43,8 @@ router.post("/login", function(req, res) {
   errorMsg = [];
   req.checkBody("username", "Please enter a username").notEmpty();
   req.checkBody("password", "Please enter a password").notEmpty();
+  req.checkBody("username", "Username must be at least 6 characters long").isLength({min:6});
+  req.checkBody("password", "Passwords must be at least 8 characters long").isLength({min:8});
 
   let errors = req.validationErrors();
   if (errors) {
@@ -122,8 +124,7 @@ router.post("/delMsg",function (req,res) {
     where:{
       id:req.body.id
     }
-  }
-).then(function (msg) {
+  }).then(function (msg) {
     res.redirect("/");
   });
 });
@@ -137,4 +138,5 @@ router.post("/likeMsg",function (req,res) {
     res.redirect("/");
   });
 });
+
 module.exports = router;
