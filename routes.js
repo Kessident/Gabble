@@ -118,15 +118,23 @@ router.post("/newgab",function (req,res) {
 });
 
 router.post("/delMsg",function (req,res) {
-  console.log(req.body);
   models.messages.destroy({
     where:{
       id:req.body.id
     }
   }
 ).then(function (msg) {
-  res.redirect("/");
-});
+    res.redirect("/");
+  });
 });
 
+router.post("/likeMsg",function (req,res) {
+  let newLike = {
+    userId:1,
+    messageId:9
+  };
+  models.likes.create(newLike).then(function () {
+    res.redirect("/");
+  });
+});
 module.exports = router;
