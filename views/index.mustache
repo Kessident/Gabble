@@ -1,5 +1,19 @@
 {{#gabs}}
-<div class="container">
-  {{body}}
+<div class="gabContainer">
+  <div class="insideContainer">
+    <p><span class="createdBy">{{createdBy}}</span>:  {{body}}</p>
+    <p class="createdAt">{{createdAt}}</p>
+  </div>
+  <div class="buttonContainer">
+    <button type="button" onclick="likeMsg();" class="likeBtn">Like</button>
+    <button type="button" onclick="deleteMsg();" class="delBtn">Delete</button>
+  </div>
 </div>
+
+<p class="msgId">{{id}}</p>
 {{/gabs}}
+
+
+<script type="text/javascript" src="/public/js/index.js">
+
+</script>

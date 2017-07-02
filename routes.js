@@ -18,8 +18,8 @@ const checkLogin = function(req, res, next) {
 router.use(checkLogin);
 
 router.get("/", function(req, res) {
-  models.messages.findAll().then(function (gabs) {
-    res.render("index", {username: req.session.username,gabs:gabs});
+  models.messages.findAll({order:[['createdAt','DESC']]}).then(function (gabs) {
+    res.render("index", {username: req.session.username, gabs:gabs});
   });
 });
 
@@ -96,12 +96,25 @@ router.get("/newgab",function (req,res) {
 router.post("/newgab",function (req,res) {
   let newGab = {
     body:req.body.newGab,
-    userId: req.session.userId
+    userId: req.session.userId,
+    createdBy: req.session.username
   };
 
   models.messages.create(newGab).then(function () {
     res.redirect("/");
   });
+});
+
+router.post("/delMsg",function (req,res) {
+  console.log(req.body);
+  models.messages.destroy({
+    where:{
+      id:req.body.msgId
+    }
+  }
+).then(function (msg) {
+  res.redirect("/");
+});
 });
 
 module.exports = router;

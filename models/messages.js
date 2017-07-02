@@ -2,7 +2,8 @@
 module.exports = function(sequelize, DataTypes) {
   var messages = sequelize.define('messages', {
     body: DataTypes.STRING(140),
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    createdBy: DataTypes.TEXT
   }, {});
 
   messages.associate = function (models) {

@@ -1,4 +1,18 @@
-.textarea{
-  width: 500px;
-  height: 5rem;
+.gabContainer{
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delBtn{
+  display: none;
+}
+
+button{
+  margin: 10px;
+}
+
+.msgId{
+  display: none;
 }

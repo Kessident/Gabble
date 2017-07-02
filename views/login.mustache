@@ -3,10 +3,12 @@
 
 <form action="/login" method="post"><span class="error">{{#msg}}{{.}}{{/msg}}</span><br>
   <label for="username">Username</label><br>
-  <input type="text" name="username" autofocus required><br>
+  <input type="text" name="username" autofocus required autocomplete="off"><br>
 
   <label for="password">Password</label><br>
   <input type="password" name="password" required><br>
 
   <button type="submit">Log In</button>
 </form>
+
+<script type="text/javascript" src="public/js/login.js"></script>
