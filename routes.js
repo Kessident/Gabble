@@ -24,7 +24,11 @@ router.get("/", function(req, res) {
 });
 
 router.get("/login", function(req, res) {
-  res.render("login", {errMsgs: errorMsg});
+  if (!req.session.username){
+    res.render("login", {errMsgs: errorMsg});
+  } else {
+    res.redirect("/");
+  }
 });
 
 router.post("/login", function(req, res) {
@@ -90,7 +94,7 @@ router.get("/logout", function(req, res) {
 });
 
 router.get("/newgab",function (req,res) {
-  res.render("newgab");
+  res.render("newgab", {username:req.session.username});
 });
 
 router.post("/newgab",function (req,res) {

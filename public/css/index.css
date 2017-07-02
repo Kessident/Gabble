@@ -1,5 +1,25 @@
+nav{
+  display: flex;
+  align-items: center;
+}
+
+nav > a{
+  padding: 1px;
+  margin: 10px;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.75);
+  border: 3px solid black;
+  background: white;
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+}
+
+nav > a:active{
+  margin: 12px 8px 8px 12px;
+  box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.75);
+}
+
 .gabContainer{
-  border-bottom: 1px solid black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,8 +31,35 @@
 
 button{
   margin: 10px;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.75);
+  border: 3px solid black;
+  background: white;
 }
 
+button:focus{
+  outline:none;
+}
+
+button:active{
+  margin: 12px 8px 8px 12px;
+  box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.75);
+}
 .msgId{
   display: none;
+}
+
+.sexy-line {
+  border: 0;
+  height: 2px;
+  background: #333;
+  background: linear-gradient(to left, white 0%, black 50%, white 100%);
+}
+
+input{
+  padding: 2px;
+  border: 3px solid black;
+}
+
+input:focus{
+  outline: none;
 }

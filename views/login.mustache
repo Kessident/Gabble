@@ -1,5 +1,5 @@
 
-<ul>{{#errMsgs}}<li>{{.}}</li>{{/errMsgs}}</ul>
+<ul class="errorMessages">{{#errMsgs}}<li>{{.}}</li>{{/errMsgs}}</ul>
 
 <form action="/login" method="post"><span class="error">{{#msg}}{{.}}{{/msg}}</span><br>
   <label for="username">Username</label><br>
