@@ -1,0 +1,5 @@
+{{#msg}}{{createdBy.username}}: {{body}}<br>{{createdAt}}{{/msg}}
+<h1>Liked By</h1>
+<ul>
+  {{#likes}}{{#likedBy}}<li>{{username}}</li>{{/likedBy}}{{/likes}}
+</ul>

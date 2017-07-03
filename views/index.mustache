@@ -4,13 +4,13 @@
     <p><span class="createdBy">{{#createdBy}}{{username}}{{/createdBy}}</span>:  {{body}}</p>
     <p class="createdAt">{{createdAt}}</p>
     <span class="msgId">{{id}}</span>
-    <span class="likes">{{likedBy.length}} like</span>
+    <a href="/message/{{id}}"><span class="likes">{{likedBy.length}}</span></a>
   </div>
   <div class="buttonContainer">
-    <form class="" action="likeMsg" method="post">
+    <form class="likeBtnForm" action="likeMsg" method="post">
       <button name="id" class="likeBtn" value="{{id}}">Like</button>
     </form>
-    <form class="" action="/delMsg" method="post">
+    <form class="delBtnForm" action="/delMsg" method="post">
       <button name="id" class="delBtn" value="{{id}}">Delete</button>
     </form>
   </div>

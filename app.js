@@ -11,7 +11,7 @@ const routes = require("./routes");
 const app = express();
 
 //Public Directory Setup
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/public", express.static("public"));
 
 //Mustache View Engine
 app.engine("mustache", mustacheExpress());
