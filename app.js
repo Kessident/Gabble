@@ -10,6 +10,8 @@ const routes = require("./routes");
 //Express App Initialization
 const app = express();
 
+app.set('port', (process.env.PORT || 3000));
+
 //Public Directory Setup
 app.use("/public", express.static("public"));
 
@@ -38,6 +40,6 @@ app.use(morgan("dev"));
 
 app.use(routes);
 
-app.listen(3000, function() {
-  console.log("server running on localhost:3000");
+app.listen(app.get('port'), function() {
+  console.log("server running on port", app.get('port'));
 });

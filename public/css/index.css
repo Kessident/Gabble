@@ -8,8 +8,12 @@ nav {
   align-items: center;
 }
 
-a{
+a {
   color: black;
+}
+
+nav {
+  box-shadow: 0 4px 10px 0 rgba(107,107,107,1);
 }
 
 nav>a {
