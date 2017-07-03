@@ -19,25 +19,31 @@ router.use(checkLogin);
 
 router.get("/", function(req, res) {
   models.messages.findAll({
-    order:[['createdAt','DESC']],
-    include:[
-      {
+    order: [
+      ['createdAt', 'DESC']
+    ],
+    include: [{
         model: models.users,
-        as:'createdBy'
+        as: 'createdBy'
       },
       {
         model: models.likes,
-        as:"likedBy"
+        as: "likedBy"
       }
     ]
-  }).then(function (gabs) {
-    res.render("index", {username: req.session.username, gabs:gabs});
+  }).then(function(gabs) {
+    res.render("index", {
+      username: req.session.username,
+      gabs: gabs
+    });
   });
 });
 
 router.get("/login", function(req, res) {
-  if (!req.session.username){
-    res.render("login", {errMsgs: errorMsg});
+  if (!req.session.username) {
+    res.render("login", {
+      errMsgs: errorMsg
+    });
   } else {
     res.redirect("/");
   }
@@ -47,8 +53,12 @@ router.post("/login", function(req, res) {
   errorMsg = [];
   req.checkBody("username", "Please enter a username").notEmpty();
   req.checkBody("password", "Please enter a password").notEmpty();
-  req.checkBody("username", "Username must be at least 6 characters long").isLength({min:6});
-  req.checkBody("password", "Passwords must be at least 8 characters long").isLength({min:8});
+  req.checkBody("username", "Username must be at least 6 characters long").isLength({
+    min: 6
+  });
+  req.checkBody("password", "Passwords must be at least 8 characters long").isLength({
+    min: 8
+  });
 
   let errors = req.validationErrors();
   if (errors) {
@@ -73,7 +83,9 @@ router.post("/login", function(req, res) {
 });
 
 router.get("/signup", function(req, res) {
-  res.render("signup", {errMsgs: errorMsg});
+  res.render("signup", {
+    errMsgs: errorMsg
+  });
 });
 
 router.post("/signup", function(req, res) {
@@ -84,7 +96,7 @@ router.post("/signup", function(req, res) {
   });
   let errors = req.validationErrors();
   if (errors) {
-    errors.forEach(function(error){
+    errors.forEach(function(error) {
       errorMsg.push(error.msg);
     });
     res.redirect("/signup");
@@ -97,11 +109,11 @@ router.post("/signup", function(req, res) {
 
     //Check if user already exists
     models.users.findOne({
-      where:{
-        username:newUser.username
+      where: {
+        username: newUser.username
       }
-    }).then(function (user) {
-      if (!user){
+    }).then(function(user) {
+      if (!user) {
         models.users.create(newUser).then(function() {
           res.redirect("/login");
         });
@@ -119,82 +131,86 @@ router.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
-router.get("/newgab",function (req,res) {
-  res.render("newgab", {username:req.session.username});
+router.get("/newgab", function(req, res) {
+  res.render("newgab", {
+    username: req.session.username
+  });
 });
 
-router.post("/newgab",function (req,res) {
+router.post("/newgab", function(req, res) {
   let newGab = {
-    body:req.body.newGab,
+    body: req.body.newGab,
     userId: req.session.userId,
     createdBy: req.session.username
   };
 
-  models.messages.create(newGab).then(function () {
+  models.messages.create(newGab).then(function() {
     res.redirect("/");
   });
 });
 
-router.post("/delMsg",function (req,res) {
+router.post("/delMsg", function(req, res) {
   models.likes.destroy({
-    where:{
-      messageId:req.body.id
+    where: {
+      messageId: req.body.id
     }
-  }).then(function(){
+  }).then(function() {
     models.messages.destroy({
-      where:{
-        id:req.body.id
+      where: {
+        id: req.body.id
       }
-    }).then(function (msg) {
+    }).then(function(msg) {
       res.redirect("/");
     });
   });
 });
 
-router.post("/likeMsg",function (req,res) {
+router.post("/likeMsg", function(req, res) {
   let newLike = {
-    userId:req.session.userId,
-    messageId:req.body.id
+    userId: req.session.userId,
+    messageId: req.body.id
   };
   models.likes.findOne({
-    where:{
-      userId:newLike.userId,
-      messageId:newLike.messageId
+    where: {
+      userId: newLike.userId,
+      messageId: newLike.messageId
     }
-  }).then(function(like){
-    console.log("Line 164: ",like);
-    if (!like){
-      models.likes.create(newLike).then(function () {res.redirect("/");});
+  }).then(function(like) {
+    console.log("Line 164: ", like);
+    if (!like) {
+      models.likes.create(newLike).then(function() {
+        res.redirect("/");
+      });
     } else {
       res.redirect("/");
     }
   });
 });
 
-router.get("/message/:id",function (req,res) {
+router.get("/message/:id", function(req, res) {
   models.messages.findOne({
-    where:{
-      id:req.params.id
+    where: {
+      id: req.params.id
     },
-    include:[
-      {
-        model:models.users,
-        as:"createdBy"
-      }
-    ]
-  }).then(function (msg) {
+    include: [{
+      model: models.users,
+      as: "createdBy"
+    }]
+  }).then(function(msg) {
     models.likes.findAll({
-      where:{
-        messageId:req.params.id
+      where: {
+        messageId: req.params.id
       },
-      include:[
-        {
-          model:models.users,
-          as:"likedBy"
-        }
-      ]
-    }).then(function(likes){
-      res.render("message",{username:req.session.username, msg:msg, likes:likes});
+      include: [{
+        model: models.users,
+        as: "likedBy"
+      }]
+    }).then(function(likes) {
+      res.render("message", {
+        username: req.session.username,
+        msg: msg,
+        likes: likes
+      });
     });
   });
 });

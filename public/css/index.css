@@ -1,14 +1,14 @@
-body{
+body {
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 1.2rem;
 }
 
-nav{
+nav {
   display: flex;
   align-items: center;
 }
 
-nav > a{
+nav>a {
   padding: 1px;
   margin: 10px;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.75);
@@ -19,22 +19,22 @@ nav > a{
   display: inline-block;
 }
 
-nav > a:active{
+nav>a:active {
   margin: 12px 8px 8px 12px;
   box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.75);
 }
 
-.gabContainer{
+.gabContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.delBtn{
+.delBtn {
   display: none;
 }
 
-button{
+button {
   margin: 10px;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.75);
   border: 3px solid black;
@@ -43,15 +43,16 @@ button{
   font-size: inherit;
 }
 
-button:focus{
-  outline:none;
+button:focus {
+  outline: none;
 }
 
-button:active{
+button:active {
   margin: 12px 8px 8px 12px;
   box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.75);
 }
-.msgId{
+
+.msgId {
   display: none;
 }
 
@@ -62,21 +63,20 @@ button:active{
   background: linear-gradient(to left, white 0%, black 50%, white 100%);
 }
 
-input{
+input {
   padding: 2px;
   border: 3px solid black;
 }
 
-input:focus{
+input:focus {
   outline: none;
 }
 
-.newGabForm{
+.newGabForm {
   display: flex
-
 }
 
-.newGabForm > button{
+.newGabForm>button {
   height: auto;
 }
 
@@ -87,14 +87,15 @@ textarea {
   resize: none;
 }
 
-textarea:focus{
+textarea:focus {
   outline: none;
-  /*border: 3px solid black;*/
   box-shadow: 2px 2px 0 0 rgba(0,0,0,0.75);
 }
 
-.createdBy{
+.createdBy {
   font-weight: bold;
 }
 
-.loginForm > input[name=""]
+ul{
+  list-style: none;
+}
