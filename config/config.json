@@ -2,21 +2,21 @@
   "development": {
     "username": "windspinks",
     "password": null,
-    "database": "d4knlt6ci5sc2b",
+    "database": "protected-sands-48301",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "windspinks",
     "password": null,
-    "database": "d4knlt6ci5sc2b",
+    "database": "protected-sands-48301",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "windspinks",
     "password": null,
-    "database": "d4knlt6ci5sc2b",
+    "database": "protected-sands-48301",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
