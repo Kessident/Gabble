@@ -33,12 +33,11 @@ app.use(session({
   saveUninitialized: false
 }));
 
-//Logger
+//logger
 app.use(morgan("dev"));
 
 app.use(routes);
 
-app.set('port', (process.env.PORT || 5000));
-app.listen(app.get('port'), function() {
-  console.log("server running on port " + app.get('port'));
+app.listen(3000, function() {
+  console.log("server running on localhost:3000");
 });

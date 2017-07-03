@@ -1,10 +1,10 @@
 {{#gabs}}
   <div class="gabContainer">
     <div class="insideContainer">
-      <p><span class="createdBy">{{#createdBy}}{{username}}{{/createdBy}}</span>: {{body}}</p>
-      <p class="createdAt">{{createdAt}}</p>
+      <p><span class="createdBy">{{username}}</span>: {{body}}</p>
+      <p class="createdAt">{{month}} {{day}}, {{year}} {{time}}</p>
       <span class="msgId">{{id}}</span>
-      <a href="/message/{{id}}"><span class="likes">{{likedBy.length}}</span></a>
+      <a href="/message/{{id}}"><span class="likes">{{likes}}</span></a>
     </div>
     <div class="buttonContainer">
       <form class="likeBtnForm" action="likeMsg" method="post">

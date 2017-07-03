@@ -3,20 +3,6 @@ const router = express.Router();
 const models = require("./models");
 let errorMsg = [];
 
-const pg = require('pg');
-
-pg.defaults.ssl = true;
-pg.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
-
-  client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
-});
-
 const checkLogin = function(req, res, next) {
   if (req.session.username) {
     next();
@@ -46,10 +32,8 @@ router.get("/", function(req, res) {
       }
     ]
   }).then(function(gabs) {
-    res.render("index", {
-      username: req.session.username,
-      gabs: gabs
-    });
+    let editGabs = formatTime(gabs);
+    res.render("index", {username: req.session.username, gabs: editGabs});
   });
 });
 
@@ -228,4 +212,79 @@ router.get("/message/:id", function(req, res) {
     });
   });
 });
+
+function resetMonth(month){
+  switch (month){
+    case 1:
+    month = "January";
+    break;
+    case 2:
+    month = "February";
+    break;
+    case 3:
+    month = "March";
+    break;
+    case 4:
+    month = "April";
+    break;
+    case 5:
+    month = "May";
+    break;
+    case 6:
+    month = "June";
+    break;
+    case 7:
+    month = "July";
+    break;
+    case 8:
+    month = "August";
+    break;
+    case 9:
+    month = "September";
+    break;
+    case 10:
+    month = "October";
+    break;
+    case 11:
+    month = "November";
+    break;
+    case 12:
+    month = "December";
+    break;
+  }
+  return month;
+}
+
+function formatTime(gabs){
+  let gabList = [];
+  gabs.forEach(function (gab) {
+    let date = new Date(gab.createdBy.createdAt),
+    month = date.getMonth(),
+    day = date.getDate(),
+    year = date.getFullYear(),
+    hours = date.getHours(),
+    minutes = date.getMinutes();
+
+    month = resetMonth(month);
+
+    if (hours < 10)
+    {hours = "0" + hours;}
+    if (minutes < 10)
+    {minutes = "0" + minutes;}
+    let time = hours + ":" + minutes;
+
+    let newGab = {
+      month: month,
+      day: day,
+      year: year,
+      time: time,
+      username: gab.createdBy.username,
+      id:gab.createdBy.id,
+      body:gab.body,
+      likes:gab.likedBy.length
+    };
+    gabList.push(newGab);
+  });
+  return gabList;
+}
 module.exports = router;

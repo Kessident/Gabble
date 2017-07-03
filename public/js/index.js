@@ -4,8 +4,7 @@ for (let i = 0; i < createdBy.length; i++){
   if (createdBy[i].innerText === localStorage.username){
     delBtns[i].style.display = 'block';
   } else {
-    let form = document.querySelector('.delBtnForm');
-    form.parentNode.removeChild(form);
+    delBtns[i].parentNode.parentNode.removeChild(delBtns[i].parentNode);
   }
 }
 

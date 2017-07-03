@@ -8,6 +8,10 @@ nav {
   align-items: center;
 }
 
+a{
+  color: black;
+}
+
 nav>a {
   padding: 1px;
   margin: 10px;
@@ -15,7 +19,6 @@ nav>a {
   border: 3px solid black;
   background: white;
   text-decoration: none;
-  color: black;
   display: inline-block;
 }
 
@@ -66,6 +69,8 @@ button:active {
 input {
   padding: 2px;
   border: 3px solid black;
+  font-family: inherit;
+  font-size: 1.2rem;
 }
 
 input:focus {
@@ -85,6 +90,8 @@ textarea {
   width: 40rem;
   border: 3px solid black;
   resize: none;
+  font-family: inherit;
+  font-size: 1.2rem;
 }
 
 textarea:focus {
