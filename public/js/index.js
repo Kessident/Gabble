@@ -1,5 +1,6 @@
 const delBtns = document.querySelectorAll('.delBtn');
 const createdBy = document.querySelectorAll('.createdBy');
+const forms = document.querySelectorAll('.likeBtnForm');
 for (let i = 0; i < createdBy.length; i++){
   if (createdBy[i].innerText === localStorage.username){
     delBtns[i].style.display = 'block';
@@ -8,14 +9,14 @@ for (let i = 0; i < createdBy.length; i++){
   }
 }
 
-const numLikes = document.querySelectorAll('.likes');
-for (var i = 0; i < numLikes.length; i++) {
-  let likeNum = parseInt(numLikes[i].innerText);
+const likeList = document.querySelectorAll('.likes');
+for (var i = 0; i < likeList.length; i++) {
+  let likeNum = parseInt(likeList[i].innerText);
   if (likeNum === 0){
-    numLikes[i].innerText = "No likes yet.";
+    likeList[i].innerText = "No likes yet.";
   } else if (likeNum === 1) {
-    numLikes[i].innerText = likeNum + " like";
+    likeList[i].innerText = likeNum + " like";
   } else {
-    numLikes[i].innerText = likeNum + " likes";
+    likeList[i].innerText = likeNum + " likes";
   }
 }

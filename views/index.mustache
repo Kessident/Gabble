@@ -4,10 +4,10 @@
       <p><span class="createdBy">{{username}}</span>: {{body}}</p>
       <p class="createdAt">{{month}} {{day}}, {{year}} {{time}}</p>
       <span class="msgId">{{id}}</span>
-      <a href="/message/{{id}}"><span class="likes">{{likes}}</span></a>
+      <a href="/message/{{id}}"><span class="likes likes{{id}}">{{likes}}</span></a>
     </div>
     <div class="buttonContainer">
-      <form class="likeBtnForm" action="likeMsg" method="post">
+      <form class="likeBtnForm" action="likeMsg" method="post" target="hiddenFrame">
         <button name="id" class="likeBtn" value="{{id}}">Like</button>
       </form>
       <form class="delBtnForm" action="/delMsg" method="post">
@@ -19,6 +19,5 @@
   <hr class="sexy-line">
 {{/gabs}}
 
-
-<script type="text/javascript" src="/public/js/index.js">
-</script>
+<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+<script type="text/javascript" src="/public/js/index.js"></script>

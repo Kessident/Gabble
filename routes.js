@@ -174,7 +174,6 @@ router.post("/likeMsg", function(req, res) {
       messageId: newLike.messageId
     }
   }).then(function(like) {
-    console.log("Line 164: ", like);
     if (!like) {
       models.likes.create(newLike).then(function() {
         res.redirect("/");
