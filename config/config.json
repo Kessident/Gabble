@@ -2,21 +2,21 @@
   "development": {
     "username": "windspinks",
     "password": null,
-    "database": "gabble",
+    "database": "d4knlt6ci5sc2b",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "windspinks",
     "password": null,
-    "database": "gabble_test",
+    "database": "d4knlt6ci5sc2b",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "windspinks",
     "password": null,
-    "database": "gabble_production",
+    "database": "d4knlt6ci5sc2b",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
