@@ -39,7 +39,7 @@ app.use(morgan("dev"));
 const pg = require('pg');
 
 app.get('/db', function (req, res) {
-  pg.connect(process.env.DATABASE, function(err, client, done) {
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query('SELECT * FROM users', function(err, result) {
       done();
       if (err)
