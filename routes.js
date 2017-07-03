@@ -31,7 +31,6 @@ router.get("/", function(req, res) {
       }
     ]
   }).then(function (gabs) {
-    console.log(gabs[1].likedBy.length);
     res.render("index", {username: req.session.username, gabs:gabs});
   });
 });
@@ -88,7 +87,6 @@ router.post("/signup", function(req, res) {
     errors.forEach(function(error){
       errorMsg.push(error.msg);
     });
-
     res.redirect("/signup");
 
   } else {
@@ -97,8 +95,21 @@ router.post("/signup", function(req, res) {
       password: req.body.password
     };
 
-    models.users.create(newUser).then(function() {
-      res.redirect("/login");
+    //Check if user already exists
+    models.users.findOne({
+      where:{
+        username:newUser.username
+      }
+    }).then(function (user) {
+      if (!user){
+        models.users.create(newUser).then(function() {
+          res.redirect("/login");
+        });
+      } else {
+        errorMsg.push("User already exists");
+        res.redirect("/login");
+      }
+
     });
   }
 });
@@ -125,25 +136,66 @@ router.post("/newgab",function (req,res) {
 });
 
 router.post("/delMsg",function (req,res) {
-  models.messages.destroy({
+  models.likes.destroy({
     where:{
-      id:req.body.id
+      messageId:req.body.id
     }
-  }).then(function (msg) {
-    res.redirect("/");
+  }).then(function(){
+    models.messages.destroy({
+      where:{
+        id:req.body.id
+      }
+    }).then(function (msg) {
+      res.redirect("/");
+    });
   });
 });
 
 router.post("/likeMsg",function (req,res) {
-  //make it correct numbers
-  //just for test
   let newLike = {
-    userId:1,
-    messageId:9
+    userId:req.session.userId,
+    messageId:req.body.id
   };
-  models.likes.create(newLike).then(function () {
-    res.redirect("/");
+  models.likes.findOne({
+    where:{
+      userId:newLike.userId,
+      messageId:newLike.messageId
+    }
+  }).then(function(like){
+    console.log("Line 164: ",like);
+    if (!like){
+      models.likes.create(newLike).then(function () {res.redirect("/");});
+    } else {
+      res.redirect("/");
+    }
   });
 });
 
+router.get("/message/:id",function (req,res) {
+  models.messages.findOne({
+    where:{
+      id:req.params.id
+    },
+    include:[
+      {
+        model:models.users,
+        as:"createdBy"
+      }
+    ]
+  }).then(function (msg) {
+    models.likes.findAll({
+      where:{
+        messageId:req.params.id
+      },
+      include:[
+        {
+          model:models.users,
+          as:"likedBy"
+        }
+      ]
+    }).then(function(likes){
+      res.render("message",{username:req.session.username, msg:msg, likes:likes});
+    });
+  });
+});
 module.exports = router;

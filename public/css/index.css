@@ -1,3 +1,8 @@
+body{
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 1.2rem;
+}
+
 nav{
   display: flex;
   align-items: center;
@@ -34,6 +39,8 @@ button{
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.75);
   border: 3px solid black;
   background: white;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 button:focus{
@@ -70,7 +77,7 @@ input:focus{
 }
 
 .newGabForm > button{
-  height: 26px;
+  height: auto;
 }
 
 textarea {
