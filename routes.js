@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const models = require("./models");
+const func = require('./functions.js');
 let errorMsg = [];
 
 const checkLogin = function(req, res, next) {
@@ -32,7 +33,7 @@ router.get("/", function(req, res) {
       }
     ]
   }).then(function(gabs) {
-    let editGabs = formatTime(gabs);
+    let editGabs = func.formatTime(gabs);
     res.render("index", {username: req.session.username, gabs: editGabs});
   });
 });
@@ -60,24 +61,28 @@ router.post("/login", function(req, res) {
 
   let errors = req.validationErrors();
   if (errors) {
-    console.log(errors);
+    errors.forEach(function(error){
+      errorMsg.push(error.msg);
+    });
+    res.redirect("/login");
+  } else {
+    let passHash = func.hash(req.body.password);
+    models.users.findOne({
+      where: {
+        username: req.body.username,
+        password: passHash
+      }
+    }).then(function(user) {
+      if (user) {
+        req.session.username = user.username;
+        req.session.userId = user.id;
+        res.redirect("/");
+      } else {
+        errorMsg.push("Invalid username and password");
+        res.redirect("/login");
+      }
+    });
   }
-
-  models.users.findOne({
-    where: {
-      username: req.body.username,
-      password: req.body.password
-    }
-  }).then(function(user) {
-    if (user) {
-      req.session.username = user.username;
-      req.session.userId = user.id;
-      res.redirect("/");
-    } else {
-      errorMsg.push("Invalid username and password");
-      res.redirect("/login");
-    }
-  });
 });
 
 router.get("/signup", function(req, res) {
@@ -89,20 +94,21 @@ router.get("/signup", function(req, res) {
 router.post("/signup", function(req, res) {
   errorMsg = [];
 
-  req.checkBody("username", "Username may not be longer than 20 characters").isLength({
-    max: 20
-  });
+  req.checkBody("username", "Username may not be longer than 20 characters").isLength({max: 20});
+  req.checkBody("password", "Password must be at least 8 characters").isLength({min:8});
+  req.checkBody("passwordConfirm", "Passwords must match").equals(req.body.password);
+
   let errors = req.validationErrors();
   if (errors) {
     errors.forEach(function(error) {
       errorMsg.push(error.msg);
     });
     res.redirect("/signup");
-
   } else {
+    let passHash = func.hash(req.body.password);
     let newUser = {
       username: req.body.username,
-      password: req.body.password
+      password: passHash
     };
 
     //Check if user already exists
@@ -113,6 +119,7 @@ router.post("/signup", function(req, res) {
     }).then(function(user) {
       if (!user) {
         models.users.create(newUser).then(function() {
+          errorMsg.push("User created successfully");
           res.redirect("/login");
         });
       } else {
@@ -212,79 +219,5 @@ router.get("/message/:id", function(req, res) {
   });
 });
 
-function resetMonth(month){
-  switch (month){
-    case 1:
-    month = "January";
-    break;
-    case 2:
-    month = "February";
-    break;
-    case 3:
-    month = "March";
-    break;
-    case 4:
-    month = "April";
-    break;
-    case 5:
-    month = "May";
-    break;
-    case 6:
-    month = "June";
-    break;
-    case 7:
-    month = "July";
-    break;
-    case 8:
-    month = "August";
-    break;
-    case 9:
-    month = "September";
-    break;
-    case 10:
-    month = "October";
-    break;
-    case 11:
-    month = "November";
-    break;
-    case 12:
-    month = "December";
-    break;
-  }
-  return month;
-}
 
-function formatTime(gabs){
-  let gabList = [];
-  gabs.forEach(function (gab) {
-    let date = new Date(gab.createdBy.createdAt),
-    month = date.getMonth(),
-    day = date.getDate(),
-    year = date.getFullYear(),
-    hours = date.getHours(),
-    minutes = date.getMinutes();
-
-    month = resetMonth(month);
-
-    if (hours < 10)
-    {hours = "0" + hours;}
-    if (minutes < 10)
-    {minutes = "0" + minutes;}
-    let time = hours + ":" + minutes;
-
-    let newGab = {
-      month: month,
-      day: day,
-      year: year,
-      time: time,
-      username: gab.createdBy.username,
-      id:gab.id,
-      // userId:gab.createdBy.id,
-      body:gab.body,
-      likes:gab.likedBy.length
-    };
-    gabList.push(newGab);
-  });
-  return gabList;
-}
 module.exports = router;
