@@ -38,16 +38,16 @@ app.use(morgan("dev"));
 
 const pg = require('pg');
 
-app.get('/db', function (req, res) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM users', function(err, result) {
-      done();
-      if (err)
-       { console.error(err); res.send("Error " + err); }
-      else
-       { res.render('db', {results: result.rows} ); }
+pg.defaults.ssl = true;
+pg.connect(process.env.DATABASE_URL, function(err, client) {
+  if (err) throw err;
+  console.log('Connected to postgres! Getting schemas...');
+
+  client
+    .query('SELECT table_schema,table_name FROM information_schema.tables;')
+    .on('row', function(row) {
+      console.log(JSON.stringify(row));
     });
-  });
 });
 
 app.use(routes);
