@@ -279,7 +279,8 @@ function formatTime(gabs){
       year: year,
       time: time,
       username: gab.createdBy.username,
-      id:gab.createdBy.id,
+      id:gab.id,
+      // userId:gab.createdBy.id,
       body:gab.body,
       likes:gab.likedBy.length
     };
