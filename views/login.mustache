@@ -1,7 +1,7 @@
 
 <ul class="errorMessages">{{#errMsgs}}<li>{{.}}</li>{{/errMsgs}}</ul>
 
-<form action="/login" method="post"><span class="error">{{#msg}}{{.}}{{/msg}}</span><br>
+<form class="loginForm" action="/login" method="post"><span class="error">{{#msg}}{{.}}{{/msg}}</span><br>
   <label for="username">Username</label><br>
   <input type="text" name="username" autofocus required autocomplete="off"><br>
 

@@ -24,9 +24,14 @@ router.get("/", function(req, res) {
       {
         model: models.users,
         as:'createdBy'
+      },
+      {
+        model: models.likes,
+        as:"likedBy"
       }
     ]
   }).then(function (gabs) {
+    console.log(gabs[1].likedBy.length);
     res.render("index", {username: req.session.username, gabs:gabs});
   });
 });
@@ -130,6 +135,8 @@ router.post("/delMsg",function (req,res) {
 });
 
 router.post("/likeMsg",function (req,res) {
+  //make it correct numbers
+  //just for test
   let newLike = {
     userId:1,
     messageId:9
