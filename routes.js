@@ -210,10 +210,8 @@ router.get("/message/:id", function(req, res) {
         as: "likedBy"
       }]
     }).then(function(likes) {
-      res.render("message", {
-        username: req.session.username,
-        msg: msg,
-        likes: likes
+      let newGab = func.formatTime(msg);
+      res.render("message", {username: req.session.username,msg: newGab, likes: likes
       });
     });
   });

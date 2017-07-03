@@ -47,7 +47,38 @@ function monthName(month){
 
 function formatTime(gabs){
   let gabList = [];
-  gabs.forEach(function (gab) {
+  if (Array.isArray(gabs)){
+    gabs.forEach(function (gab) {
+      let date = new Date(gab.createdBy.createdAt),
+      month = date.getMonth(),
+      day = date.getDate(),
+      year = date.getFullYear(),
+      hours = date.getHours(),
+      minutes = date.getMinutes();
+
+      month = monthName(month);
+
+      if (hours < 10)
+      {hours = "0" + hours;}
+      if (minutes < 10)
+      {minutes = "0" + minutes;}
+      let time = hours + ":" + minutes;
+
+      let newGab = {
+        month: month,
+        day: day,
+        year: year,
+        time: time,
+        username: gab.createdBy.username,
+        id:gab.id,
+        body:gab.body,
+        likes:gab.likedBy.length
+      };
+      gabList.push(newGab);
+    });
+    return gabList;
+  } else {
+    let gab = gabs;
     let date = new Date(gab.createdBy.createdAt),
     month = date.getMonth(),
     day = date.getDate(),
@@ -63,19 +94,16 @@ function formatTime(gabs){
     {minutes = "0" + minutes;}
     let time = hours + ":" + minutes;
 
-    let newGab = {
+    return {
       month: month,
       day: day,
       year: year,
       time: time,
       username: gab.createdBy.username,
       id:gab.id,
-      body:gab.body,
-      likes:gab.likedBy.length
+      body:gab.body
     };
-    gabList.push(newGab);
-  });
-  return gabList;
+  }
 }
 
 module.exports = {

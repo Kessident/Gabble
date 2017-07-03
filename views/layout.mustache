@@ -10,14 +10,14 @@
 
 <body>
   <nav>
-    <a href="/">Gabble</a> |
-    <a href="/newgab">Create a new Gab</a> |
+    <a href="/">Gabble</a>
+    <a href="/newgab">Create a new Gab</a>
     {{#username}}
-      <a href="/">Logged in as: {{.}}</a> |
+      <a href="/">Logged in as: {{.}}</a>
       <a href="/logout">Log Out</a>
     {{/username}}
     {{^username}}
-    <a href="/login">Log in</a> |
+    <a href="/login">Log in</a>
     <a href="/signup">Sign Up</a>
     {{/username}}
   </nav>
