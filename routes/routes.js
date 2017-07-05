@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const models = require("./models");
-const func = require('./functions.js');
+const models = require("../models");
+const func = require('../utils/functions.js');
 let errorMsg = [];
 
 const checkLogin = function(req, res, next) {
