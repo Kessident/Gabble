@@ -5,7 +5,7 @@ const expressValidator = require("express-validator");
 const session = require("express-session");
 const path = require("path");
 const morgan = require("morgan");
-const routes = require("./routes");
+const routes = require("./routes/routes.js");
 
 //Express App Initialization
 const app = express();
@@ -37,20 +37,6 @@ app.use(session({
 
 //logger
 app.use(morgan("dev"));
-
-var pg = require('pg');
-
-pg.defaults.ssl = true;
-pg.connect(process.env.DATABASE_URL, function(err, client) {
-  if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
-
-  client
-    .query('SELECT table_schema,table_name FROM information_schema.tables;')
-    .on('row', function(row) {
-      console.log(JSON.stringify(row));
-    });
-});
 
 app.use(routes);
 
