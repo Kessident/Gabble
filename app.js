@@ -9,37 +9,32 @@ const routes = require("./routes/routes.js");
 
 //Express App Initialization
 const app = express();
-
-app.set('port', (process.env.PORT || 3000));
-
 //Public Directory Setup
-app.use("/public", express.static("public"));
-
+app.use("/public", express.static(path.join(__dirname, "public")));
 //Mustache View Engine
 app.engine("mustache", mustacheExpress());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "mustache");
 app.set("layout", "layout");
-
 //Body Parser
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(expressValidator());
-
 //Express Session Initialization
 app.use(session({
-  secret: "aarvg#hma3r 3 df %$^Twtahgystfg ",
+  secret: "",
   resave: false,
   saveUninitialized: false
 }));
 
-//logger
+//Logger
 app.use(morgan("dev"));
+
+//Port setup
+app.set('port', (process.env.PORT || 3000));
 
 app.use(routes);
 
-app.listen(app.get('port'), function() {
-  console.log("server running on port", app.get('port'));
+app.listen(app.get('port'), function () {
+  console.log("server running on localhost:" + app.get('port'));
 });

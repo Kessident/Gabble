@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     userId: DataTypes.INTEGER
   }, {});
 
-  messages.associate = function (models) {
+  messages.associate = (models) => {
     messages.belongsTo(models.users, {as: "createdBy", foreignKey:"userId"});
     messages.hasMany(models.likes, {as:"likedBy", foreignKey:"messageId"});
   };
