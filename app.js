@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 //Express Session Initialization
 app.use(session({
-  secret: "",
+  secret: "475@&623*rweu@*TDY#^$645CJHFGBNMV",
   resave: false,
   saveUninitialized: false
 }));
