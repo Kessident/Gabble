@@ -1,67 +1,70 @@
 const crypto = require('crypto');
-function hash(string){
+
+function hash(string) {
   return crypto.createHash('md5').update(string).digest('hex');
 }
 
-function monthName(month){
-  switch (month){
+function monthName(month) {
+  switch (month) {
     case 1:
-    month = "January";
-    break;
+      month = "January";
+      break;
     case 2:
-    month = "February";
-    break;
+      month = "February";
+      break;
     case 3:
-    month = "March";
-    break;
+      month = "March";
+      break;
     case 4:
-    month = "April";
-    break;
+      month = "April";
+      break;
     case 5:
-    month = "May";
-    break;
+      month = "May";
+      break;
     case 6:
-    month = "June";
-    break;
+      month = "June";
+      break;
     case 7:
-    month = "July";
-    break;
+      month = "July";
+      break;
     case 8:
-    month = "August";
-    break;
+      month = "August";
+      break;
     case 9:
-    month = "September";
-    break;
+      month = "September";
+      break;
     case 10:
-    month = "October";
-    break;
+      month = "October";
+      break;
     case 11:
-    month = "November";
-    break;
+      month = "November";
+      break;
     case 12:
-    month = "December";
-    break;
+      month = "December";
+      break;
   }
   return month;
 }
 
-function formatTime(gabs){
+function formatTime(gabs) {
   let gabList = [];
-  if (Array.isArray(gabs)){
-    gabs.forEach(function (gab) {
+  if (Array.isArray(gabs)) {
+    gabs.forEach(function(gab) {
       let date = new Date(gab.createdBy.createdAt),
-      month = date.getMonth(),
-      day = date.getDate(),
-      year = date.getFullYear(),
-      hours = date.getHours(),
-      minutes = date.getMinutes();
+        month = date.getMonth(),
+        day = date.getDate(),
+        year = date.getFullYear(),
+        hours = date.getHours(),
+        minutes = date.getMinutes();
 
       month = monthName(month);
 
-      if (hours < 10)
-      {hours = "0" + hours;}
-      if (minutes < 10)
-      {minutes = "0" + minutes;}
+      if (hours < 10) {
+        hours = "0" + hours;
+      }
+      if (minutes < 10) {
+        minutes = "0" + minutes;
+      }
       let time = hours + ":" + minutes;
 
       let newGab = {
@@ -70,9 +73,9 @@ function formatTime(gabs){
         year: year,
         time: time,
         username: gab.createdBy.username,
-        id:gab.id,
-        body:gab.body,
-        likes:gab.likedBy.length
+        id: gab.id,
+        body: gab.body,
+        likes: gab.likedBy.length
       };
       gabList.push(newGab);
     });
@@ -80,18 +83,20 @@ function formatTime(gabs){
   } else {
     let gab = gabs;
     let date = new Date(gab.createdBy.createdAt),
-    month = date.getMonth(),
-    day = date.getDate(),
-    year = date.getFullYear(),
-    hours = date.getHours(),
-    minutes = date.getMinutes();
+      month = date.getMonth(),
+      day = date.getDate(),
+      year = date.getFullYear(),
+      hours = date.getHours(),
+      minutes = date.getMinutes();
 
     month = monthName(month);
 
-    if (hours < 10)
-    {hours = "0" + hours;}
-    if (minutes < 10)
-    {minutes = "0" + minutes;}
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
     let time = hours + ":" + minutes;
 
     return {
@@ -100,14 +105,14 @@ function formatTime(gabs){
       year: year,
       time: time,
       username: gab.createdBy.username,
-      id:gab.id,
-      body:gab.body
+      id: gab.id,
+      body: gab.body
     };
   }
 }
 
 module.exports = {
-  hash:hash,
-  formatTime:formatTime,
-  monthname:monthName
+  hash: hash,
+  formatTime: formatTime,
+  monthname: monthName
 };
