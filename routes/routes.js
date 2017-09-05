@@ -34,7 +34,10 @@ router.get("/", function(req, res) {
     ]
   }).then(function(gabs) {
     let editGabs = func.formatTime(gabs);
-    res.render("index", {username: req.session.username, gabs: editGabs});
+    res.render("index", {
+      username: req.session.username,
+      gabs: editGabs
+    });
   });
 });
 
@@ -61,7 +64,7 @@ router.post("/login", function(req, res) {
 
   let errors = req.validationErrors();
   if (errors) {
-    errors.forEach(function(error){
+    errors.forEach(function(error) {
       errorMsg.push(error.msg);
     });
     res.redirect("/login");
@@ -94,8 +97,12 @@ router.get("/signup", function(req, res) {
 router.post("/signup", function(req, res) {
   errorMsg = [];
 
-  req.checkBody("username", "Username may not be longer than 20 characters").isLength({max: 20});
-  req.checkBody("password", "Password must be at least 8 characters").isLength({min:8});
+  req.checkBody("username", "Username may not be longer than 20 characters").isLength({
+    max: 20
+  });
+  req.checkBody("password", "Password must be at least 8 characters").isLength({
+    min: 8
+  });
   req.checkBody("passwordConfirm", "Passwords must match").equals(req.body.password);
 
   let errors = req.validationErrors();
@@ -211,7 +218,10 @@ router.get("/message/:id", function(req, res) {
       }]
     }).then(function(likes) {
       let newGab = func.formatTime(msg);
-      res.render("message", {username: req.session.username,msg: newGab, likes: likes
+      res.render("message", {
+        username: req.session.username,
+        msg: newGab,
+        likes: likes
       });
     });
   });

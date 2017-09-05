@@ -47,7 +47,7 @@ button {
 }
 
 button:hover, nav > a:hover {
-  background: lightgrey;
+  background: #e6e6e6;
 }
 
 button:focus {
@@ -78,6 +78,7 @@ input {
 }
 
 input:focus {
+  box-shadow: 1px 1px 0px 1px rgba(0,0,0,1);
   outline: none;
 }
 
